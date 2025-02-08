@@ -1,9 +1,9 @@
-name: Deploy to Netlify
+name: Deploy Branches to Netlify
 
 on:
   push:
     branches:
-      - main  # Change to your deployment branch if different
+      - '*'  # Deploy every branch
 
 jobs:
   build-and-deploy:
@@ -29,7 +29,9 @@ jobs:
         uses: nwtgck/actions-netlify@v2
         with:
           publish-dir: ./build
-          production-branch: main
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          deploy-message: "Automated Deployment from GitHub Actions 🚀"
+          site-id: ${{ secrets.NETLIFY_SITE_ID }}  # Optional if using manual site setup
+          deploy-message: "Branch Deployment from GitHub Actions 🚀"
+          alias: ${{ github.ref_name }}  # Each branch gets its own unique URL
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}  # Move token here
