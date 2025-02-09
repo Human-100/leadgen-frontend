@@ -7,7 +7,7 @@ export default function App() {
   useEffect(() => {
     const fetchMessage = async () => {
       try {
-        const response = await fetch("http://localhost:5000", {
+        const response = await fetch("https://leadgen-backend-1fgh.onrender.com", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
