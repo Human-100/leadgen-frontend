@@ -1,37 +1,32 @@
-name: Deploy Branches to Netlify
+name: CI/CD for React app
 
 on:
-  push:
-    branches:
-      - '*'  # Deploy every branch
+    push:
+        branches: [main]
+    workflow_dispatch:
+permissions: 
+    contents: write
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
+    build_and_deploy:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+        steps:
+          - name: Checkout repository
+            uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: 'npm'
+          - name: Nodejs setup
+            uses: actions/setup-node@v3
+            with:
+                node-version: 18
+          - name: Install Dependencies
+            run: npm install
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build the React app
-        run: npm run build
-
-      - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v2
-        with:
-          publish-dir: ./build
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          site-id: ${{ secrets.NETLIFY_SITE_ID }}  # Optional if using manual site setup
-          deploy-message: "Branch Deployment from GitHub Actions 🚀"
-          alias: ${{ github.ref_name }}  # Each branch gets its own unique URL
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}  # Move token here
+          - name: Build Project
+            run: npm run build
+          
+          - name: Deploy to github pages
+            uses: JamesIves/github-pages-deploy-action@4.1.0
+            with:
+                branch: gh-pages
+                folder: build
