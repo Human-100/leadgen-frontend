@@ -49,11 +49,7 @@ export default function App() {
         maxWidth: "600px"
       }}>
       <h1 style={{ color: "#de0500", marginBottom: "20px" }}>Leadgen</h1>
-<<<<<<< HEAD
        <h2 style={{ color: "#333", marginBottom: "20px" }}>Mainned chnaged Branch</h2>
-=======
-       <h2 style={{ color: "#333", marginBottom: "20px" }}>Main chnaged 2nd Branch</h2>
->>>>>>> 3d177fe65448ec11ea1d7192cd0ef2729418eefd
         <p style={{ fontSize: "20px", color: "#555" }}>{loading ? "Loading..." : message}</p>
       </div>
     </div>
